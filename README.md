@@ -4,24 +4,37 @@
 
 |Column|Type|Options|
 |------|----|-------|
+| nickname           | string | null: false |
 | email              | string | null: false,unique: true |
 | encrypted_password | string | null: false |
-| name               | string | null: false |
-（ここに追記していく）
-
+| name-last          | string | null: false |
+| name-first         | string | null: false |
+| name-last-kana     | string | null: false |
+| name-first-kana    | string | null: false |
+| birth-year_id      | integar | null: false |
+| birth-y_id         | integar | null: false |
+| birth-year_id      | integar | null: false |
 
 ### Association
-（ここに追記していく）
+has_many
+
 
 ## items テーブル
 
 |Column|Type|Options|
 |------|----|-------|
-| item_name               | string | null: false |
-| category           | string | null: false |
-| price              | decimal | null: false |
-| user_id            | references | nulll false foreign_key: true |
-（ここに追記していく）
+| image                   | string      | null: false |
+| name                    | string      | null: false |
+| description             | string      | null: false |
+| condition_id            | integar     | null: false |
+| category_id             | integar     | null: false |
+| price                   | integar     | null: false |
+| user_id                 | references  | nulll false foreign_key: true |
+
+### Association
+belongs_to
+
+
 
 ## purchase テーブル
 
@@ -30,22 +43,22 @@
 | user_id            | references | nulll false foreign_key: true |
 | item_id            | references | nulll false foreign_key: true |
 
+### Association
+belongs_to
 
-（ここに追記していく）
 
 
 ## shipping テーブル
 
 |Column|Type|Options|
 |------|----|-------|
-| user_id            | references | nulll false foreign_key: true |
-| street             | string     | null: false |
-| city               | string     | null: false |
-| state              | string     | null: false |
-| postal_code        | string     | null: false |
-| country            | string     | null: false |
+| user_id            | references  | nulll false foreign_key: true |
+| prefecture_id      | integar     | null: false |
+| days_id            | integar     | null: false |
 
-（ここに追記していく）
+
+### Association
+has_one
 
 
 This README would normally document whatever steps are necessary to get the
