@@ -6,7 +6,7 @@
 |------|----|-------|
 | nickname           | string | null: false |
 | email              | string | null: false,unique: true |
-| password              | string | null: false |
+| encrypted_password    | string | null: false |
 | password_confirmation | string | null: false |
 | name_last          | string | null: false |
 | name_first         | string | null: false |
@@ -16,8 +16,6 @@
 
 ### Association
 has_many :items
-has_many :purchases
-has_many :shippings
 
 
 ## items テーブル
@@ -28,11 +26,15 @@ has_many :shippings
 | description             | text        | null: false |
 | condition_id            | integer     | null: false |
 | category_id             | integer     | null: false |
+| shipping_fee_id         | integer     | null: false |
+| prefecture_id           | integer     | null: false |
+| shipping_day_id         | integer     | null: false |
 | price                   | integer     | null: false |
-| user_id                 | references  | null: false, foreign_key: true |
+| user                    | references  | null: false, foreign_key: true |
 
 ### Association
-belongs_to
+belongs_to :user
+has_one :purchase
 
 
 
@@ -40,11 +42,12 @@ belongs_to
 
 |Column|Type|Options|
 |------|----|-------|
-| user_id            | references | null: false, foreign_key: true |
-| item_id            | references | null: false, foreign_key: true |
+| user            | references | null: false, foreign_key: true |
+| item            | references | null: false, foreign_key: true |
 
 ### Association
-belongs_to
+belongs_to :user
+belongs_to :item
 
 
 
@@ -57,10 +60,11 @@ belongs_to
 | street_address    | string      | null: false |
 | building_name     | string      |             |
 | phone_number      | string      | null: false |
-
+| purchase          | references  | null: false, foreign_key: true |
 
 ### Association
-has_one
+belongs_to :purchase
+
 
 
 This README would normally document whatever steps are necessary to get the
