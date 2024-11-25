@@ -1,60 +1,64 @@
 # README
 
 ## users テーブル
+| password              | string | null: false |
+| password_confirmation | string | null: false |
 
 |Column|Type|Options|
 |------|----|-------|
 | nickname           | string | null: false |
 | email              | string | null: false,unique: true |
-| encrypted_password | string | null: false |
-| name-last          | string | null: false |
-| name-first         | string | null: false |
-| name-last-kana     | string | null: false |
-| name-first-kana    | string | null: false |
-| birth-year_id      | integar | null: false |
-| birth-y_id         | integar | null: false |
-| birth-year_id      | integar | null: false |
+| password              | string | null: false |
+| password_confirmation | string | null: false |
+| name_last          | string | null: false |
+| name_first         | string | null: false |
+| name_last_kana     | string | null: false |
+| name_first_kana    | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
-has_many
+has_many :items
+has_many :purchases
+has_many :shippings
 
 
 ## items テーブル
 
 |Column|Type|Options|
 |------|----|-------|
-| image                   | string      | null: false |
 | name                    | string      | null: false |
-| description             | string      | null: false |
-| condition_id            | integar     | null: false |
-| category_id             | integar     | null: false |
-| price                   | integar     | null: false |
-| user_id                 | references  | nulll false foreign_key: true |
+| description             | text        | null: false |
+| condition_id            | integer     | null: false |
+| category_id             | integer     | null: false |
+| price                   | integer     | null: false |
+| user_id                 | references  | null: false, foreign_key: true |
 
 ### Association
 belongs_to
 
 
 
-## purchase テーブル
+## purchases テーブル
 
 |Column|Type|Options|
 |------|----|-------|
-| user_id            | references | nulll false foreign_key: true |
-| item_id            | references | nulll false foreign_key: true |
+| user_id            | references | null: false, foreign_key: true |
+| item_id            | references | null: false, foreign_key: true |
 
 ### Association
 belongs_to
 
 
 
-## shipping テーブル
-
+## shippings テーブル
 |Column|Type|Options|
 |------|----|-------|
-| user_id            | references  | nulll false foreign_key: true |
-| prefecture_id      | integar     | null: false |
-| days_id            | integar     | null: false |
+| postal_code        | string      | null: false |
+| prefecture_id      | integer     | null: false |
+| city              | string      | null: false |
+| street_address    | string      | null: false |
+| building_name     | string      |             |
+| phone_number      | string      | null: false |
 
 
 ### Association
