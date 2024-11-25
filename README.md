@@ -1,8 +1,6 @@
 # README
 
 ## users テーブル
-| password              | string | null: false |
-| password_confirmation | string | null: false |
 
 |Column|Type|Options|
 |------|----|-------|
