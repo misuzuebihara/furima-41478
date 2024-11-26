@@ -7,7 +7,6 @@
 | nickname           | string | null: false |
 | email              | string | null: false,unique: true |
 | encrypted_password    | string | null: false |
-| password_confirmation | string | null: false |
 | name_last          | string | null: false |
 | name_first         | string | null: false |
 | name_last_kana     | string | null: false |
@@ -16,7 +15,7 @@
 
 ### Association
 has_many :items
-
+has_many :purchases
 
 ## items テーブル
 
@@ -48,7 +47,7 @@ has_one :purchase
 ### Association
 belongs_to :user
 belongs_to :item
-
+belongs_to :shipping
 
 
 ## shippings テーブル
