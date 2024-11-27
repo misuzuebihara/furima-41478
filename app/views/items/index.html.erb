@@ -15,15 +15,7 @@
   <%= render "shared/header" %>
 <% end %>
 <div class='main'>
-  <% if user_signed_in? %>
-  <% else %>
-    <div class='nav'>
-      <ul class='lists-right'>
-        <li><%= link_to '新規登録', new_user_registration_path, class: "sign-up" %></li>
-        <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
-      </ul>
-    </div>
-  <% end %>
+
 
   <%# 画面上部の「人生を変えるフリマアプリ」帯部分 %>
   <div class='title-contents'>
