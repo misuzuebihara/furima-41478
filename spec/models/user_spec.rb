@@ -1,17 +1,4 @@
 require 'rails_helper'
-FactoryBot.define do
-  factory :user do
-    nickname              { 'test' }
-    email                 { 'test@example' }
-    password              { 'abc123' }
-    password_confirmation { 'abc123' }
-    name_last            { '山田' }
-    name_first           { '太郎' }
-    name_last_kana       { 'ヤマダ' }
-    name_first_kana      { 'タロウ' }
-    birthday             { '1930-01-01' }
-  end
-end
 
 RSpec.describe User, type: :model do
   context 'ユーザ登録ができる時' do
@@ -65,6 +52,30 @@ RSpec.describe User, type: :model do
       expect(user2.errors.full_messages).to include('Email has already been taken')
     end
 
+    it 'emailが空では登録できない' do
+      user = FactoryBot.build(:user, email: '')
+      user.valid?
+      expect(user.errors.full_messages).to include("Email can't be blank")
+    end
+
+    it 'passwordが空では登録できない' do
+      user = FactoryBot.build(:user, password: '')
+      user.valid?
+      expect(user.errors.full_messages).to include("Password can't be blank")
+    end
+
+    it 'passwordに全角文字を含んでいると登録できない' do
+      user = FactoryBot.build(:user, password: 'あいうabc123', password_confirmation: 'あいうabc123')
+      user.valid?
+      expect(user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+    end
+
+    it 'passwordとpassword_confirmationが不一致だと登録できない' do
+      user = FactoryBot.build(:user, password: 'abc123', password_confirmation: 'def456')
+      user.valid?
+      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+
     it 'パスワードは英字のみでは登録できない' do
       user = FactoryBot.build(:user, password: 'abcdef', password_confirmation: 'abcdef')
       user.valid?
@@ -83,12 +94,23 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to include('Name last kana 全角カタカナを使用してください')
     end
 
+    it 'name_last_kanaが空では登録できない' do
+      user = FactoryBot.build(:user, name_last_kana: '')
+      user.valid?
+      expect(user.errors.full_messages).to include("Name last kana can't be blank")
+    end
+
     it 'name_first_kanaが全角カタカナでないと登録できない' do
       user = FactoryBot.build(:user, name_first_kana: 'たろう')
       user.valid?
       expect(user.errors.full_messages).to include('Name first kana 全角カタカナを使用してください')
     end
 
+    it 'name_first_kanaが空では登録できない' do
+      user = FactoryBot.build(:user, name_first_kana: '')
+      user.valid?
+      expect(user.errors.full_messages).to include("Name first kana can't be blank")
+    end
     it '生年月日が空では登録できない' do
       user = FactoryBot.build(:user, birthday: '')
       user.valid?
